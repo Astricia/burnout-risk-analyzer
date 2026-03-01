@@ -24,7 +24,7 @@ export default function LogWork() {
     }
 
     addWorkLog(parsed);
-    setMessage(`✅ ${parsed} work hour${parsed !== 1 ? "s" : ""} logged successfully!`);
+    setMessage(` ${parsed} work hour${parsed !== 1 ? "s" : ""} logged successfully!`);
     setError("");
     setHours("");
   };

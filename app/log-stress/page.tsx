@@ -5,9 +5,9 @@ import { useBurnoutStore, StressLevel } from "@/store/useBurnoutStore";
 import Card from "@/components/Card";
 
 const options: { value: StressLevel; label: string; description: string }[] = [
-  { value: "low", label: "😌 Low", description: "Feeling calm and in control" },
-  { value: "medium", label: "😤 Medium", description: "Some pressure but manageable" },
-  { value: "high", label: "😰 High", description: "Overwhelmed or very stressed" },
+  { value: "low", label: " Low", description: "Feeling calm and in control" },
+  { value: "medium", label: " Medium", description: "Some pressure but manageable" },
+  { value: "high", label: " High", description: "Overwhelmed or very stressed" },
 ];
 
 export default function LogStress() {
@@ -19,7 +19,7 @@ export default function LogStress() {
     e.preventDefault();
     addStressLog(level);
     const selected = options.find((o) => o.value === level);
-    setMessage(`✅ Stress level "${selected?.label}" logged successfully!`);
+    setMessage(` Stress level "${selected?.label}" logged successfully!`);
   };
 
   return (

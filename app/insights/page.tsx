@@ -100,7 +100,7 @@ export default function Insights() {
 
       {/* ── Recommendation ──────────────────────────────────────── */}
       <Card>
-        <h2 className="text-xl font-bold mb-3">💡 Personalized Recommendation</h2>
+        <h2 className="text-xl font-bold mb-3"> Personalized Recommendation</h2>
         <p className="text-sm md:text-base text-gray-700 leading-relaxed">{recommendation}</p>
       </Card>
 
@@ -118,7 +118,7 @@ export default function Insights() {
                 <span className="text-gray-600 font-medium text-sm">{log.displayDate}</span>
                 <div className="flex gap-4 text-sm font-medium">
                   <span>
-                    🕐{" "}
+                    {" "}
                     {log.hours !== undefined ? (
                       <span className="text-blue-700">{log.hours} hrs</span>
                     ) : (
@@ -126,7 +126,7 @@ export default function Insights() {
                     )}
                   </span>
                   <span className={`capitalize ${stressColor(log.stressLevel)}`}>
-                    ❤️‍🔥{" "}
+                    {" "}
                     {log.stressLevel ?? (
                       <span className="text-gray-400 font-normal">No stress log</span>
                     )}
@@ -161,12 +161,12 @@ export default function Insights() {
               >
                 {/* Date */}
                 <span className="text-gray-500 text-sm font-medium min-w-[110px]">
-                  📅 {log.displayDate}
+                   {log.displayDate}
                 </span>
 
                 {/* Hours Chip */}
                 <div className="flex items-center gap-2 bg-blue-50 border border-blue-200 rounded-lg px-3 py-1.5">
-                  <span className="text-blue-500">🕐</span>
+                  <span className="text-blue-500"></span>
                   <span className="text-sm font-semibold text-blue-700">
                     {log.hours !== undefined ? `${log.hours} hrs worked` : "No work logged"}
                   </span>
@@ -184,7 +184,7 @@ export default function Insights() {
                           : "bg-gray-50 border-gray-200"
                     }`}
                 >
-                  <span>❤️‍🔥</span>
+                  <span></span>
                   <span
                     className={`text-sm font-semibold capitalize ${stressColor(log.stressLevel)}`}
                   >

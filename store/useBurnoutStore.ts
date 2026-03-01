@@ -2,12 +2,14 @@ import { create } from "zustand";
 
 export type StressLevel = "low" | "medium" | "high";
 
-interface WorkLog {
+export interface WorkLog {
+  id: string;
   date: string;
   hours: number;
 }
 
-interface StressLog {
+export interface StressLog {
+  id: string;
   date: string;
   level: StressLevel;
 }
@@ -17,6 +19,8 @@ interface BurnoutState {
   stressLogs: StressLog[];
   addWorkLog: (hours: number) => void;
   addStressLog: (level: StressLevel) => void;
+  removeWorkLog: (id: string) => void;
+  removeStressLog: (id: string) => void;
 }
 
 export const useBurnoutStore = create<BurnoutState>((set) => ({
@@ -27,7 +31,7 @@ export const useBurnoutStore = create<BurnoutState>((set) => ({
     set((state) => ({
       workLogs: [
         ...state.workLogs,
-        { date: new Date().toISOString(), hours },
+        { id: crypto.randomUUID(), date: new Date().toISOString(), hours },
       ],
     })),
 
@@ -35,7 +39,17 @@ export const useBurnoutStore = create<BurnoutState>((set) => ({
     set((state) => ({
       stressLogs: [
         ...state.stressLogs,
-        { date: new Date().toISOString(), level },
+        { id: crypto.randomUUID(), date: new Date().toISOString(), level },
       ],
+    })),
+
+  removeWorkLog: (id) =>
+    set((state) => ({
+      workLogs: state.workLogs.filter((log) => log.id !== id),
+    })),
+
+  removeStressLog: (id) =>
+    set((state) => ({
+      stressLogs: state.stressLogs.filter((log) => log.id !== id),
     })),
 }));
