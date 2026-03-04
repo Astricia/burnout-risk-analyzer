@@ -18,8 +18,9 @@ export const calculateBurnoutScore = (
 
   const score = avgHours * 0.6 + stressScore * 10 * 0.4;
 
-  if (score < 40) return { score, risk: "Low" };
-  if (score < 70) return { score, risk: "Moderate" };
+  
+  if (score < 15) return { score, risk: "Low" };
+  if (score < 25) return { score, risk: "Moderate" };
   return { score, risk: "High" };
 };
 

@@ -17,8 +17,9 @@ export interface StressLog {
 interface BurnoutState {
   workLogs: WorkLog[];
   stressLogs: StressLog[];
-  addWorkLog: (hours: number) => void;
-  addStressLog: (level: StressLevel) => void;
+  // allow caller to specify a date (iso string); default to now when omitted
+  addWorkLog: (hours: number, date?: string) => void;
+  addStressLog: (level: StressLevel, date?: string) => void;
   removeWorkLog: (id: string) => void;
   removeStressLog: (id: string) => void;
 }
@@ -27,19 +28,19 @@ export const useBurnoutStore = create<BurnoutState>((set) => ({
   workLogs: [],
   stressLogs: [],
 
-  addWorkLog: (hours) =>
+  addWorkLog: (hours, date = new Date().toISOString()) =>
     set((state) => ({
       workLogs: [
         ...state.workLogs,
-        { id: crypto.randomUUID(), date: new Date().toISOString(), hours },
+        { id: crypto.randomUUID(), date, hours },
       ],
     })),
 
-  addStressLog: (level) =>
+  addStressLog: (level, date = new Date().toISOString()) =>
     set((state) => ({
       stressLogs: [
         ...state.stressLogs,
-        { id: crypto.randomUUID(), date: new Date().toISOString(), level },
+        { id: crypto.randomUUID(), date, level },
       ],
     })),
 

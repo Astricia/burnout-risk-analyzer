@@ -6,6 +6,11 @@ import Card from "@/components/Card";
 
 export default function LogWork() {
   const [hours, setHours] = useState("");
+  const [date, setDate] = useState(() => {
+    // default to today's date in YYYY-MM-DD format
+    const now = new Date();
+    return now.toISOString().slice(0, 10);
+  });
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const { addWorkLog } = useBurnoutStore();
@@ -23,7 +28,10 @@ export default function LogWork() {
       return;
     }
 
-    addWorkLog(parsed);
+    // convert selected date to full ISO string (time will default to midnight UTC)
+    const iso = new Date(date).toISOString();
+
+    addWorkLog(parsed, iso);
     setMessage(` ${parsed} work hour${parsed !== 1 ? "s" : ""} logged successfully!`);
     setError("");
     setHours("");
@@ -35,6 +43,19 @@ export default function LogWork() {
         <h2 className="text-xl font-semibold mb-1">Log Work Hours</h2>
         <p className="text-gray-400 text-sm mb-4">Enter how many hours you worked today.</p>
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+          <label className="flex flex-col">
+            <span className="text-sm text-gray-600">Date</span>
+            <input
+              type="date"
+              value={date}
+              onChange={(e) => {
+                setDate(e.target.value);
+                setMessage("");
+                setError("");
+              }}
+              className="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+            />
+          </label>
           <input
             type="number"
             value={hours}

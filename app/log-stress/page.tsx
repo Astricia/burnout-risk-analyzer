@@ -12,12 +12,17 @@ const options: { value: StressLevel; label: string; description: string }[] = [
 
 export default function LogStress() {
   const [level, setLevel] = useState<StressLevel>("low");
+  const [date, setDate] = useState(() => {
+    const now = new Date();
+    return now.toISOString().slice(0, 10);
+  });
   const [message, setMessage] = useState("");
   const { addStressLog } = useBurnoutStore();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    addStressLog(level);
+    const iso = new Date(date).toISOString();
+    addStressLog(level, iso);
     const selected = options.find((o) => o.value === level);
     setMessage(` Stress level "${selected?.label}" logged successfully!`);
   };
@@ -28,6 +33,18 @@ export default function LogStress() {
         <h2 className="text-xl font-semibold mb-1">Log Stress Level</h2>
         <p className="text-gray-400 text-sm mb-4">How are you feeling today?</p>
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+          <label className="flex flex-col">
+            <span className="text-sm text-gray-600">Date</span>
+            <input
+              type="date"
+              value={date}
+              onChange={(e) => {
+                setDate(e.target.value);
+                setMessage("");
+              }}
+              className="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-400"
+            />
+          </label>
 
           {/* Styled option buttons instead of a plain select */}
           <div className="flex flex-col gap-2">
